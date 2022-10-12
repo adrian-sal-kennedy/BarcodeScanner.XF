@@ -100,7 +100,7 @@ namespace BarcodeScanner.Mobile.XamarinForms.Renderer
             if (Element.RequestedFPS.HasValue)
             {
                 Camera2Interop.Extender ext = new Camera2Interop.Extender(imageAnalyzerBuilder);
-                ext.SetCaptureRequestOption(CaptureRequest.ControlAeMode, 0);
+                ext.SetCaptureRequestOption(CaptureRequest.ControlAeMode, 2); // ON_AUTO_FLASH = 2
                 ext.SetCaptureRequestOption(CaptureRequest.ControlAeTargetFpsRange, new Android.Util.Range((int)Element.RequestedFPS.Value, (int)Element.RequestedFPS.Value));
             }
 
