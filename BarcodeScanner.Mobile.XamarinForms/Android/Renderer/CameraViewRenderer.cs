@@ -44,7 +44,7 @@ namespace BarcodeScanner.Mobile.XamarinForms.Renderer
         public CameraViewRenderer(Context context) : base(context)
         {
             _cameraExecutor = Executors.NewSingleThreadExecutor();
-            _cameraFuture   = ProcessCameraProvider.GetInstance(context);
+            _cameraFuture = ProcessCameraProvider.GetInstance(context);
         }
 
         protected override void OnElementChanged(ElementChangedEventArgs<BarcodeScanner.Mobile.XamarinForms.CameraView> e)
@@ -111,8 +111,15 @@ namespace BarcodeScanner.Mobile.XamarinForms.Renderer
                                 .Build();
 
             imageAnalyzer.SetAnalyzer(_cameraExecutor, new BarcodeAnalyzer(this));
-
-            var cameraSelector = SelectCamera(cameraProvider);
+            CameraSelector cameraSelector = null;
+            try
+            {
+                cameraSelector = SelectCamera(cameraProvider);
+            }
+            catch (NotSupportedException exc)
+            {
+                Log.Debug(nameof(CameraCallback), "Use case binding failed", exc);
+            }
 
             try
             {
@@ -125,7 +132,7 @@ namespace BarcodeScanner.Mobile.XamarinForms.Renderer
 
                 if (lifecycleOwner == null)
                     throw new Exception("Unable to find lifecycle owner");
-                
+
                 // Bind use cases to camera
                 _camera = cameraProvider.BindToLifecycle(lifecycleOwner, cameraSelector, preview, imageAnalyzer);
 
@@ -140,16 +147,16 @@ namespace BarcodeScanner.Mobile.XamarinForms.Renderer
 
         private CameraSelector SelectCamera(ProcessCameraProvider cameraProvider)
         {
-	        if (Element.CameraFacing == CameraFacing.Front)
-	        {
-		        if (cameraProvider.HasCamera(CameraSelector.DefaultFrontCamera))
-			        return CameraSelector.DefaultFrontCamera;
+            if (Element.CameraFacing == CameraFacing.Front)
+            {
+                if (cameraProvider.HasCamera(CameraSelector.DefaultFrontCamera))
+                    return CameraSelector.DefaultFrontCamera;
 
                 throw new NotSupportedException("Front camera is not supported in this device");
             }
 
-	        if (cameraProvider.HasCamera(CameraSelector.DefaultBackCamera))
-		        return CameraSelector.DefaultBackCamera;
+            if (cameraProvider.HasCamera(CameraSelector.DefaultBackCamera))
+                return CameraSelector.DefaultBackCamera;
 
             throw new NotSupportedException("Back camera is not supported in this device");
         }
@@ -287,7 +294,7 @@ namespace BarcodeScanner.Mobile.XamarinForms.Renderer
                     if (mediaImage == null) return;
 
                     _lastRunTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
-                    
+
                     if (_lastRunTime - _lastAnalysisTime > _renderer.Element.ScanInterval && _renderer.Element.IsScanning)
                     {
                         _lastAnalysisTime = _lastRunTime;
@@ -295,7 +302,7 @@ namespace BarcodeScanner.Mobile.XamarinForms.Renderer
                         // Pass image to the scanner and have it do its thing
                         var result = await ToAwaitableTask(_barcodeScanner.Process(image));
 
-                    
+
                         var final = Core.Methods.ProcessBarcodeResult(result);
 
                         if (final == null || _renderer?.Element == null) return;
@@ -388,7 +395,7 @@ namespace BarcodeScanner.Mobile.XamarinForms.Renderer
                     return 90;
                 Android.Views.IWindowManager windowManager = Android.App.Application.Context.GetSystemService(Context.WindowService).JavaCast<Android.Views.IWindowManager>();
 
-                switch(windowManager.DefaultDisplay.Rotation)
+                switch (windowManager.DefaultDisplay.Rotation)
                 {
                     case Android.Views.SurfaceOrientation.Rotation0:
                         return 90;
