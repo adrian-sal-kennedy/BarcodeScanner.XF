@@ -43,29 +43,29 @@
         <!-- <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" /> -->
 
         <!-- We will compile anything ending in .shared.cs  You can change this -->
-        <Compile Include="Shared\CameraView.cs"/>
-        <PackageReference Include="BarcodeScanner.Mobile.Core" Version="6.3.0.23"/>
-        <PackageReference Include="Xamarin.Build.Download" Version="0.11.4"/>
-        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515"/>
-        <PackageReference Include="Xamarin.Essentials" Version="1.7.3"/>
+        <Compile Include="Shared\CameraView.cs" />
+        <PackageReference Include="BarcodeScanner.Mobile.Core" Version="6.3.0.23" />
+        <PackageReference Include="Xamarin.Build.Download" Version="0.11.4" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
 
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-        <Compile Include="NetStandard\Methods.cs"/>
+        <Compile Include="NetStandard\Methods.cs" />
     </ItemGroup>
 
     <ItemGroup Condition="( '$(TargetFramework)' == 'MonoAndroid12.0' )">
-        <Compile Include="Android\Methods.cs"/>
-        <Compile Include="Android\RendererInitializer.cs"/>
-        <Compile Include="Android\Renderer\CameraViewRenderer.cs"/>
+        <Compile Include="Android\Methods.cs" />
+        <Compile Include="Android\RendererInitializer.cs" />
+        <Compile Include="Android\Renderer\CameraViewRenderer.cs" />
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
-        <Compile Include="iOS\Methods.cs"/>
-        <Compile Include="iOS\RendererInitializer.cs"/>
-        <Compile Include="iOS\UICameraPreview.cs"/>
-        <Compile Include="iOS\Renderer\CameraViewRenderer.cs"/>
+        <Compile Include="iOS\Methods.cs" />
+        <Compile Include="iOS\RendererInitializer.cs" />
+        <Compile Include="iOS\UICameraPreview.cs" />
+        <Compile Include="iOS\Renderer\CameraViewRenderer.cs" />
     </ItemGroup>
 
 
