@@ -51,19 +51,21 @@
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-        <Compile Include="NetStandard\Methods.cs" />
+        <Compile Include="NetStandard\Methods.cs"/>
     </ItemGroup>
 
     <ItemGroup Condition="( '$(TargetFramework)' == 'MonoAndroid12.0' )">
-        <Compile Include="Android\Renderer\CameraViewRenderer.cs" />
-        <Compile Include="Android\Methods.cs" />
-        <Compile Include="Android\RendererInitializer.cs" />
+        <Compile Include="Android\Methods.cs"/>
+        <Compile Include="Android\RendererInitializer.cs"/>
+        <Compile Include="Android\Renderer\CameraViewRenderer.cs"/>
     </ItemGroup>
 
     <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
-        <Compile Include="iOS\Renderer\CameraViewRenderer.cs" />
-        <Compile Include="iOS\Methods.cs" />
-        <Compile Include="iOS\RendererInitializer.cs" />
-        <Compile Include="iOS\UICameraPreview.cs" />
+        <Compile Include="iOS\Methods.cs"/>
+        <Compile Include="iOS\RendererInitializer.cs"/>
+        <Compile Include="iOS\UICameraPreview.cs"/>
+        <Compile Include="iOS\Renderer\CameraViewRenderer.cs"/>
     </ItemGroup>
+
+
 </Project>
