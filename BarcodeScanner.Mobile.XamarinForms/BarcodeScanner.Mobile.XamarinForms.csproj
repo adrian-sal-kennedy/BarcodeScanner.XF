@@ -1,72 +1,69 @@
 ﻿<Project Sdk="MSBuild.Sdk.Extras/3.0.44">
 
-	<PropertyGroup>
+    <PropertyGroup>
 
-		<!--Update with your target such as: Xamarin.iOS10 or MonoAndroid80 or Xamarin.Mac20-->
-		<TargetFrameworks>Xamarin.iOS10;MonoAndroid12.0;netstandard2.0</TargetFrameworks>
+        <!--Update with your target such as: Xamarin.iOS10 or MonoAndroid80 or Xamarin.Mac20-->
+        <TargetFrameworks>Xamarin.iOS10;MonoAndroid12.0;netstandard2.0</TargetFrameworks>
 
-		<!--Assembly and Namespace info -->
-		<id>BarcodeScanner.Mobile.XamarinForms</id>
-		<AssemblyName>BarcodeScanner.Mobile.XamarinForms</AssemblyName>
-		<RootNamespace>BarcodeScanner.Mobile.XamarinForms</RootNamespace>
+        <!--Assembly and Namespace info -->
+        <id>BarcodeScanner.Mobile.XamarinForms</id>
+        <AssemblyName>BarcodeScanner.Mobile.XamarinForms</AssemblyName>
+        <RootNamespace>BarcodeScanner.Mobile.XamarinForms</RootNamespace>
+        <AssemblyVersion>6.3.0.23</AssemblyVersion>
+        <AssemblyFileVersion>6.3.0.23</AssemblyFileVersion>
+        <Version>6.3.0.23</Version>
+        <NeutralLanguage>en</NeutralLanguage>
 
-		<Product></Product>
-		<AssemblyVersion>6.3.0.23</AssemblyVersion>
-		<AssemblyFileVersion>6.3.0.23</AssemblyFileVersion>
-		<Version>6.3.0.23</Version>
-		<NeutralLanguage>en</NeutralLanguage>
+        <!--Don't auto add files for me, I will tell you -->
+        <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
 
-		<!--Don't auto add files for me, I will tell you -->
-		<EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+        <!-- Helper to add defines-->
+        <DefineConstants>$(DefineConstants);</DefineConstants>
 
-		<!-- Helper to add defines-->
-		<DefineConstants>$(DefineConstants);</DefineConstants>
+        <!--Assembly and Namespace info -->
 
-		<!--Assembly and Namespace info -->
+        <!--Version of C# to use -->
+        <LangVersion>default</LangVersion>
+        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+        <Authors>Jimmy Pun, Anton Yaroshenko</Authors>
+        <Description>.NET 6 upgrade for BarcodeScanner.XF, Powerful Xamarin Forms barcode scanning library using GoogleVision API for Android and iOS.</Description>
+        <PackageIconUrl>https://banner2.kisspng.com/20180713/olo/kisspng-nuget-net-framework-package-manager-software-repo-nuget-5b487dc3ba81a7.452233091531477443764.jpg</PackageIconUrl>
+        <RepositoryUrl>https://github.com/JimmyPun610/BarcodeScanner.Mobile</RepositoryUrl>
+        <PackageProjectUrl>https://github.com/JimmyPun610/BarcodeScanner.Mobile</PackageProjectUrl>
+        <PackageLicenseUrl>https://github.com/JimmyPun610/BarcodeScanner.Mobile</PackageLicenseUrl>
+        <PackageTags>Xamarin.Forms Barcode Scanning Tools</PackageTags>
+        <PackageReleaseNotes>1. Xamarin Forms version support</PackageReleaseNotes>
+        <Copyright>Copyright 2022</Copyright>
+        <PackOnBuild>true</PackOnBuild>
+    </PropertyGroup>
 
-		<!--Version of C# to use -->
-		<LangVersion>default</LangVersion>
-		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Authors>Jimmy Pun, Anton Yaroshenko</Authors>
-		<Description>.NET 6 upgrade for BarcodeScanner.XF, Powerful Xamarin Forms barcode scanning library using GoogleVision API for Android and iOS.</Description>
-		<PackageIconUrl>https://banner2.kisspng.com/20180713/olo/kisspng-nuget-net-framework-package-manager-software-repo-nuget-5b487dc3ba81a7.452233091531477443764.jpg</PackageIconUrl>
-		<RepositoryUrl>https://github.com/JimmyPun610/BarcodeScanner.Mobile</RepositoryUrl>
-		<PackageProjectUrl>https://github.com/JimmyPun610/BarcodeScanner.Mobile</PackageProjectUrl>
-		<PackageLicenseUrl>https://github.com/JimmyPun610/BarcodeScanner.Mobile</PackageLicenseUrl>
-		<RepositoryType></RepositoryType>
-		<PackageTags>Xamarin.Forms Barcode Scanning Tools</PackageTags>
-		<PackageReleaseNotes>1. Xamarin Forms version support</PackageReleaseNotes>
-		<Copyright>Copyright 2022</Copyright>
-		<PackOnBuild>true</PackOnBuild>
-	</PropertyGroup>
+    <ItemGroup>
+        <!-- This None is here so the conditionally included files show up in the Solution Explorer -->
+        <!-- <None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" /> -->
 
-	<ItemGroup>
-		<!-- This None is here so the conditionally included files show up in the Solution Explorer -->
-		<None Include="**\*.cs;**\*.xml;**\*.axml;**\*.png" Exclude="obj\**\*.*;bin\**\*.*;bin;obj" />
+        <!-- We will compile anything ending in .shared.cs  You can change this -->
+        <Compile Include="Shared\CameraView.cs" />
+        <PackageReference Include="BarcodeScanner.Mobile.Core" Version="6.3.0.23" />
+        <PackageReference Include="Xamarin.Build.Download" Version="0.11.4" />
+        <PackageReference Include="Xamarin.Essentials" Version="1.7.4" />
+        <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />
 
-		<!-- We will compile anything ending in .shared.cs  You can change this -->
-		<Compile Include="Shared\*.cs" />
-		<PackageReference Include="BarcodeScanner.Mobile.Core" Version="6.3.0.23" />
-		<PackageReference Include="Xamarin.Build.Download" Version="0.11.3" />
-		<PackageReference Include="Xamarin.Forms" Version="5.0.0.2515" />
-		<PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+    </ItemGroup>
 
-	</ItemGroup>
-	
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
-		<Compile Include="NetStandard\*.cs" />
-	</ItemGroup>
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('netstandard')) ">
+        <Compile Include="NetStandard\Methods.cs" />
+    </ItemGroup>
 
-	<ItemGroup Condition="( '$(TargetFramework)' == 'MonoAndroid12.0' )">
-		<Compile Include="Android\*.cs" />
-		<Compile Include="Android\**\*.cs" />
-	</ItemGroup>
+    <ItemGroup Condition="( '$(TargetFramework)' == 'MonoAndroid12.0' )">
+        <Compile Include="Android\Renderer\CameraViewRenderer.cs" />
+        <Compile Include="Android\Methods.cs" />
+        <Compile Include="Android\RendererInitializer.cs" />
+    </ItemGroup>
 
-	<ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
-		<Compile Include="iOS\*.cs" />
-		<Compile Include="iOS\**\*.cs" />
-	</ItemGroup>
-
-
-
+    <ItemGroup Condition=" $(TargetFramework.StartsWith('Xamarin.iOS')) ">
+        <Compile Include="iOS\Renderer\CameraViewRenderer.cs" />
+        <Compile Include="iOS\Methods.cs" />
+        <Compile Include="iOS\RendererInitializer.cs" />
+        <Compile Include="iOS\UICameraPreview.cs" />
+    </ItemGroup>
 </Project>
